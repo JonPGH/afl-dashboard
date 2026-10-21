@@ -1,0 +1,5 @@
+server.log
+*.png
+!og.png
+__pycache__/
+*.log

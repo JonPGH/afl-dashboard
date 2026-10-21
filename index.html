@@ -1,0 +1,102 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Live 2026 Arizona Fall League hitting and pitching stats for every player, with MLB org and prospect rankings. Updated every 3 hours.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://jonpgh.github.io/afl-dashboard/"><meta property="og:title" content="Arizona Fall League 2026 Prospect Stat Center">
+<meta property="og:description" content="Live 2026 AFL hitting and pitching stats with MLB orgs and prospect ranks. Sortable, searchable, updated every 3 hours.">
+<meta property="og:image" content="https://jonpgh.github.io/afl-dashboard/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Arizona Fall League 2026 Prospect Stat Center">
+<meta name="twitter:description" content="Live 2026 AFL hitting and pitching stats with MLB orgs and prospect ranks."><meta name="twitter:image" content="https://jonpgh.github.io/afl-dashboard/og.png">
+<title>AFL 2026 · Prospect Stat Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f17;--panel:#121826;--panel2:#171f31;--line:#232c40;--tx:#e6eaf2;--mut:#8b95a9;--acc:#3b82f6;--gold:#f5c451}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1200px 500px at 10% -10%,#1a2440 0,transparent 60%),var(--bg);color:var(--tx);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:28px 20px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:22px}
+.eyebrow{color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+h1{margin:4px 0 6px;font-size:30px;font-weight:800;letter-spacing:-.02em}.upd{color:var(--mut);font-size:13px}
+.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 14px;min-width:96px}
+.chip b{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}.chip span{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.tabs{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px;margin-bottom:18px}
+.tab{border:0;background:none;color:var(--mut);font:600 14px Inter,system-ui;padding:8px 22px;border-radius:999px;cursor:pointer}.tab.on{background:var(--acc);color:#fff}
+.leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:18px}
+.card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.card h3{margin:0 0 10px;font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.1em;display:flex;justify-content:space-between}
+.card h3 em{font-style:normal;opacity:.7;text-transform:none;letter-spacing:0}
+.ld{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}.ld:first-of-type{border-top:0}
+.ld .v{font-weight:700;font-variant-numeric:tabular-nums}.ld.top .v{font-size:22px;color:var(--gold)}.ld.top .nm{font-weight:700;font-size:15px}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.pill{background:var(--panel);border:1px solid var(--line);border-radius:999px;color:var(--tx);padding:8px 14px;font:500 13px Inter,system-ui;display:flex;align-items:center;gap:8px}
+.pill input,.pill select{background:none;border:0;color:var(--tx);font:inherit;outline:none}.pill select option{background:var(--panel)}
+.pill input[type=number]{width:48px}.pill label{color:var(--mut)}#q{width:200px}
+.sw{position:relative;width:34px;height:20px;background:#2a3348;border-radius:999px;cursor:pointer;transition:.2s}.sw::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#cfd6e4;transition:.2s}
+.sw.on{background:var(--gold)}.sw.on::after{left:17px;background:#111}
+.legend{color:var(--mut);font-size:12px;margin-left:auto}
+.tw{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:auto;max-height:72vh}
+table{border-collapse:separate;border-spacing:0;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:9px 10px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+th{position:sticky;top:0;z-index:2;background:#0f1522;color:var(--mut);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;user-select:none}
+th:hover{color:var(--tx)}th.act{color:var(--acc)}th.act::after{content:attr(data-d);margin-left:4px}
+td:first-child,th:first-child{position:sticky;left:0;text-align:left;z-index:1}th:first-child{z-index:3}
+tbody tr:nth-child(odd) td{background:#121826}tbody tr:nth-child(even) td{background:#141b2b}tbody tr:hover td{background:#1c2740}
+td:first-child{min-width:230px;box-shadow:1px 0 0 var(--line)}.nm{font-weight:600}
+.org{display:inline-block;font-size:10px;font-weight:800;padding:2px 6px;border-radius:5px;margin-left:7px;color:#fff;vertical-align:1px;letter-spacing:.03em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.rk{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;margin-left:6px;color:#2b1d00;background:linear-gradient(135deg,#ffe08a,#e3a91f);vertical-align:1px}
+.hm{border-radius:6px;padding:2px 6px}.empty{padding:30px;text-align:center;color:var(--mut)}
+footer{color:var(--mut);font-size:12px;margin-top:14px}
+@media(max-width:640px){h1{font-size:23px}td:first-child{min-width:170px}#q{width:130px}.legend{margin-left:0}}
+</style></head><body><div class="wrap">
+<header><div><div class="eyebrow">Arizona Fall League · 2026</div><h1>Prospect Stat Center</h1><div class="upd" id="upd">Loading…</div></div><div class="chips" id="chips"></div></header>
+<div class="tabs"><button class="tab on" data-t="h">Hitters</button><button class="tab" data-t="p">Pitchers</button></div>
+<div class="leaders" id="leaders"></div>
+<div class="ctl"><div class="pill">🔍<input id="q" placeholder="Search player"></div>
+<div class="pill"><label>Org</label><select id="org"><option value="">All MLB orgs</option></select></div>
+<div class="pill" style="cursor:pointer" id="rkw"><div class="sw" id="sw"></div>Ranked only</div>
+<div class="pill" id="minw"><label id="minl">Min PA</label><input id="min" type="number" min="0" value="0"></div>
+<div class="legend"><span class="rk">H#</span> hitter list · <span class="rk">P#</span> pitcher list — MLB Data Warehouse overall rank</div></div>
+<div class="tw"><table id="tbl"></table></div>
+<footer id="foot"></footer></div>
+<script>
+const COL={AZ:"#A71930",ATL:"#CE1141",BAL:"#DF4601",BOS:"#BD3039",CHC:"#0E3386",CWS:"#4B4B4B",CIN:"#C6011F",CLE:"#00385D",COL:"#33006F",DET:"#0C2340",HOU:"#EB6E1F",KC:"#004687",LAA:"#BA0021",LAD:"#005A9C",MIA:"#00A3E0",MIL:"#12284B",MIN:"#002B5C",NYM:"#FF5910",NYY:"#0C2340",ATH:"#003831",OAK:"#003831",PHI:"#E81828",PIT:"#FDB827",SD:"#6F5B4B",SF:"#FD5A1E",SEA:"#005C5C",STL:"#C41E3A",TB:"#092C5C",TEX:"#003278",TOR:"#134A8E",WSH:"#AB0003"};
+const DARKTX=new Set(["PIT"]);
+const HC=["name","G","PA","AB","H","2B","3B","HR","R","RBI","BB","SO","SB","AVG","OBP","SLG","OPS"],
+PC=["name","G","GS","IP","H","R","ER","BB","SO","HR","ERA","WHIP","K9","BB9"],LBL={K9:"K/9",BB9:"BB/9",name:"Player"};
+const LOWGOOD=new Set(["ERA","WHIP","BB9","H","R","ER","BB","HR"]);
+const HEAT={AVG:1,OBP:1,SLG:1,OPS:1,ERA:-1,WHIP:-1,K9:1,BB9:-1};
+let D,tab="h",ranked=false,sort={h:["OPS",-1],p:["IPd",-1]};
+const f3=v=>v==null?"–":v.toFixed(3).replace(/^0/,""),f2=v=>v==null?"–":v.toFixed(2);
+const fmt=(c,v)=>["AVG","OBP","SLG","OPS"].includes(c)?f3(v):["ERA","WHIP","K9","BB9"].includes(c)?f2(v):v;
+const orgChip=o=>`<span class="org" style="background:${COL[o]||"#444"};${DARKTX.has(o)?"color:#111":""}">${o}</span>`;
+const rkB=r=>r.rank?`<span class="rk" title="${r.rank.list} list · ${r.rank.pos} · ETA ${r.rank.eta}">${r.rank.list=="hitter"?"H":"P"}#${r.rank.rank}</span>`:"";
+const who=r=>`<span class="nm">${r.name}</span>${orgChip(r.org)}${rkB(r)}`;
+// heat scale vs qualified pool percentiles
+let pools={};
+function buildPools(){const q=(arr,c)=>arr.map(r=>r[c]).filter(v=>v!=null).sort((a,b)=>a-b);
+ const hq=D.hitters.filter(r=>r.PA>=20),pq=D.pitchers.filter(r=>r.IPd>=5);
+ ["AVG","OBP","SLG","OPS"].forEach(c=>pools[c]=q(hq,c));["ERA","WHIP","K9","BB9"].forEach(c=>pools[c]=q(pq,c))}
+function heat(c,v){if(v==null||!pools[c]||!pools[c].length)return"";const a=pools[c];let i=0;while(i<a.length&&a[i]<v)i++;
+ let p=i/a.length;if(HEAT[c]<0)p=1-p;const t=(p-.5)*2,al=Math.min(Math.abs(t),1)*.38;if(al<.04)return"";
+ return t>0?`background:rgba(239,68,68,${al})`:`background:rgba(59,130,246,${al})`}
+function leaders(){const el=document.getElementById("leaders");
+ const card=(title,note,rows,c,dir,f)=>{const s=[...rows].filter(r=>r[c]!=null).sort((a,b)=>dir*(a[c]-b[c])||b.PA-a.PA||b.IPd-a.IPd).slice(0,5);
+  return `<div class="card"><h3>${title}<em>${note}</em></h3>${s.map((r,i)=>`<div class="ld ${i?"":"top"}"><div>${who(r)}</div><div class="v">${f(r[c])}</div></div>`).join("")}</div>`};
+ if(tab=="h"){const q=D.hitters.filter(r=>r.PA>=25);el.innerHTML=card("OPS Leaders","min 25 PA",q,"OPS",-1,f3)+card("Home Runs","",D.hitters,"HR",-1,v=>v)+card("Stolen Bases","",D.hitters,"SB",-1,v=>v)}
+ else{const q=D.pitchers.filter(r=>r.IPd>=8);el.innerHTML=card("ERA Leaders","min 8 IP",q,"ERA",1,f2)+card("Strikeouts","",D.pitchers,"SO",-1,v=>v)+card("WHIP Leaders","min 8 IP",q,"WHIP",1,f2)}}
+function render(){const cols=tab=="h"?HC:PC,[k,d]=sort[tab];const q=document.getElementById("q").value.toLowerCase(),o=document.getElementById("org").value,mn=+document.getElementById("min").value||0;
+ let rows=(tab=="h"?D.hitters:D.pitchers).filter(r=>(!q||r.name.toLowerCase().includes(q))&&(!o||r.org==o)&&(!ranked||r.rank)&&(tab=="h"?r.PA:r.IPd)>=mn);
+ const key=k=="IP"?"IPd":k;rows.sort((a,b)=>key=="name"?d*a.name.localeCompare(b.name):d*((a[key]??-1e9)-(b[key]??-1e9)));
+ const sk=k=="IPd"?"IP":k;
+ document.getElementById("tbl").innerHTML="<thead><tr>"+cols.map(c=>`<th data-c="${c}" class="${c==sk?"act":""}" data-d="${d>0?"▲":"▼"}">${LBL[c]||c}</th>`).join("")+"</tr></thead><tbody>"+
+  (rows.length?rows.map(r=>"<tr>"+cols.map(c=>c=="name"?`<td>${who(r)}</td>`:HEAT[c]?`<td><span class="hm" style="${heat(c,r[c])}">${fmt(c,r[c])}</span></td>`:`<td>${fmt(c,r[c])}</td>`).join("")+"</tr>").join(""):`<tr><td colspan="${cols.length}" class="empty">No players match these filters.</td></tr>`)+"</tbody>";
+ document.querySelectorAll("#tbl th").forEach(th=>th.onclick=()=>{let c=th.dataset.c;if(c=="IP")c="IPd";sort[tab]=[c,sort[tab][0]==c?-sort[tab][1]:(c=="name"||LOWGOOD.has(c)&&tab=="p"?1:-1)];render()});
+ document.getElementById("foot").textContent=`Showing ${rows.length} ${tab=="h"?"hitters":"pitchers"} · Heat shading vs. qualified pool (20+ PA / 5+ IP): red = better, blue = worse · Source: MLB Stats API box scores`}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{tab=b.dataset.t;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x==b));
+ document.getElementById("minl").textContent=tab=="h"?"Min PA":"Min IP";document.getElementById("min").value=0;leaders();render()});
+document.getElementById("rkw").onclick=()=>{ranked=!ranked;document.getElementById("sw").classList.toggle("on",ranked);render()};
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(d=>{D=d;const m=d.meta;buildPools();
+ document.getElementById("upd").textContent="Last updated "+new Date(d.updated).toLocaleString([], {dateStyle:"medium",timeStyle:"short"});
+ const chip=(v,l)=>`<div class="chip"><b>${v}</b><span>${l}</span></div>`;
+ document.getElementById("chips").innerHTML=chip(d.games,"Games")+chip(d.hitters.length,"Hitters")+chip(d.pitchers.length,"Pitchers")+chip(m.matched,"Ranked prospects");
+ [...new Set([...d.hitters,...d.pitchers].map(r=>r.org))].sort().forEach(o=>document.getElementById("org").insertAdjacentHTML("beforeend",`<option>${o}</option>`));
+ ["q","org","min"].forEach(i=>document.getElementById(i).oninput=render);leaders();render();if(location.hash=="#pitchers")document.querySelector('.tab[data-t="p"]').click()})
+.catch(e=>document.getElementById("upd").textContent="Failed to load data.json: "+e);
+</script></body></html>
